@@ -18,12 +18,12 @@ describe('broccoli-derequire', function(){
   it('has default patterns to replace require and define', function(){
     var sourcePath = 'tests/fixtures/default-patterns';
     var tree = derequire(sourcePath);
+    var expected = fs.readFileSync(sourcePath + '/output.js',  { encoding: 'utf8' });
 
     builder = new broccoli.Builder(tree);
     return builder.build().then(function(results) {
       var dir = results.directory
-      var actual = fs.readFileSync(dir + '/main.js', { encoding: 'utf8'});
-      var expected = 'ZOMG, ZOMG\n\nREPLACED!!!\n\nZOMG, ZOMG\n';
+      var actual = fs.readFileSync(dir + '/input.js', { encoding: 'utf8'});
 
       expect(actual).to.equal(expected);
     });
@@ -34,12 +34,12 @@ describe('broccoli-derequire', function(){
     var tree = derequire(sourcePath, {
       pattern: { from: 'asdf', to: 'hjkl' }
     });
+    var expected = fs.readFileSync(sourcePath + '/output.js',  { encoding: 'utf8' });
 
     builder = new broccoli.Builder(tree);
     return builder.build().then(function(results) {
       var dir = results.directory
-      var actual = fs.readFileSync(dir + '/main.js', { encoding: 'utf8'});
-      var expected = 'ZOMG, ZOMG\n\nREPLACED!!!\n\nZOMG, ZOMG\n';
+      var actual = fs.readFileSync(dir + '/input.js', { encoding: 'utf8'});
 
       expect(actual).to.equal(expected);
     });
@@ -54,11 +54,12 @@ describe('broccoli-derequire', function(){
         { from: 'define', to: 'enifed' }
       ]
     });
+    var expected = fs.readFileSync(sourcePath + '/output.js',  { encoding: 'utf8' });
 
     builder = new broccoli.Builder(tree);
-    return builder.build().then(function(dir) {
-      var actual = fs.readFileSync(dir + '/main.js', { encoding: 'utf8'});
-      var expected = 'TEEHEE ZOMG\n\nREPLACED!!!\n\nZOMG, ZOMG\n';
+    return builder.build().then(function(results) {
+      var dir = results.directory;
+      var actual = fs.readFileSync(dir + '/input.js', { encoding: 'utf8'});
 
       expect(actual).to.equal(expected);
     });
