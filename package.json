@@ -1,0 +1,28 @@
+{
+  "name": "broccoli-derequire",
+  "version": "0.0.1",
+  "description": "Broccoli plugin to replace on token with another (require => __dereq__).",
+  "main": "index.js",
+  "author": "Robert Jackson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rwjblue/broccoli-derequire.git"
+  },
+  "scripts": {
+    "test": "mocha tests/"
+  },
+  "keywords": [
+    "broccoli-plugin",
+    "javascript"
+  ],
+  "dependencies": {
+    "broccoli-filter": "~0.1.6",
+    "derequire": "^1.2.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.18.2",
+    "broccoli": "~0.13.0",
+    "expect.js": "~0.3.1"
+  }
+}
