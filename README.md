@@ -1,4 +1,4 @@
-# Broccoli's String Replace
+# broccoli-derequire
 
 [![Build Status](https://travis-ci.org/rwjblue/broccoli-derequire.svg?branch=master)](https://travis-ci.org/rwjblue/broccoli-derequire)
 
