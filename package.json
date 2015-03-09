@@ -1,6 +1,6 @@
 {
   "name": "broccoli-derequire",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Broccoli plugin to replace on token with another (require => __dereq__).",
   "main": "index.js",
   "author": "Robert Jackson",
