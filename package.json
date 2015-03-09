@@ -17,12 +17,12 @@
     "javascript"
   ],
   "dependencies": {
-    "broccoli-filter": "~0.1.6",
+    "broccoli-filter": "~0.1.11",
     "derequire": "^2.0.0"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
-    "broccoli": "~0.13.0",
+    "broccoli": "~0.13.6",
     "expect.js": "~0.3.1"
   }
 }
