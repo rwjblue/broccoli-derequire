@@ -1,67 +1,61 @@
 'use strict';
 
-var derequire = require('..');
-var expect = require('expect.js');
+const Derequire = require('..');
+const { expect } = require('chai');
 
-var fs = require('fs');
-var broccoli = require('broccoli');
+const fs = require('fs');
+const broccoli = require('broccoli');
 
-var builder;
+let builder;
 
-describe('broccoli-derequire', function(){
+describe('broccoli-derequire', function() {
   afterEach(function() {
     if (builder) {
       builder.cleanup();
     }
   });
 
-  it('has default patterns to replace require and define', function(){
-    var sourcePath = 'tests/fixtures/default-patterns';
-    var tree = derequire(sourcePath);
-    var expected = fs.readFileSync(sourcePath + '/output.js',  { encoding: 'utf8' });
+  it('has default patterns to replace require and define', async function() {
+    let sourcePath = 'tests/fixtures/default-patterns';
+    let tree = new Derequire(sourcePath);
+    let expected = fs.readFileSync(sourcePath + '/output.js', { encoding: 'utf8' });
 
     builder = new broccoli.Builder(tree);
-    return builder.build().then(function(results) {
-      var dir = results.directory
-      var actual = fs.readFileSync(dir + '/input.js', { encoding: 'utf8'});
+    await builder.build();
+    let actual = fs.readFileSync(builder.outputPath + '/input.js', { encoding: 'utf8' });
 
-      expect(actual).to.equal(expected);
-    });
+    expect(actual).to.equal(expected);
   })
 
-  it('can use a single pattern', function(){
-    var sourcePath = 'tests/fixtures/single-pattern';
-    var tree = derequire(sourcePath, {
+  it('can use a single pattern', async function() {
+    let sourcePath = 'tests/fixtures/single-pattern';
+    let tree = new Derequire(sourcePath, {
       pattern: { from: 'asdf', to: 'hjkl' }
     });
-    var expected = fs.readFileSync(sourcePath + '/output.js',  { encoding: 'utf8' });
+    let expected = fs.readFileSync(sourcePath + '/output.js', { encoding: 'utf8' });
 
     builder = new broccoli.Builder(tree);
-    return builder.build().then(function(results) {
-      var dir = results.directory
-      var actual = fs.readFileSync(dir + '/input.js', { encoding: 'utf8'});
+    await builder.build();
+    let actual = fs.readFileSync(builder.outputPath + '/input.js', { encoding: 'utf8' });
 
-      expect(actual).to.equal(expected);
-    });
+    expect(actual).to.equal(expected);
   })
 
-  it('can use multiple patterns', function(){
-    var sourcePath = 'tests/fixtures/default-patterns';
-    var tree = derequire(sourcePath, {
-      files: [ 'matched-file.js' ],
+  it('can use multiple patterns', async function() {
+    let sourcePath = 'tests/fixtures/default-patterns';
+    let tree = new Derequire(sourcePath, {
+      files: ['matched-file.js'],
       patterns: [
         { from: 'require', to: 'eriuqer' },
         { from: 'define', to: 'enifed' }
       ]
     });
-    var expected = fs.readFileSync(sourcePath + '/output.js',  { encoding: 'utf8' });
+    let expected = fs.readFileSync(sourcePath + '/output.js', { encoding: 'utf8' });
 
     builder = new broccoli.Builder(tree);
-    return builder.build().then(function(results) {
-      var dir = results.directory;
-      var actual = fs.readFileSync(dir + '/input.js', { encoding: 'utf8'});
+    await builder.build();
+    let actual = fs.readFileSync(builder.outputPath + '/input.js', { encoding: 'utf8' });
 
-      expect(actual).to.equal(expected);
-    });
+    expect(actual).to.equal(expected);
   })
 });
