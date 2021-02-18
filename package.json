@@ -2,30 +2,50 @@
   "name": "broccoli-derequire",
   "version": "0.1.0",
   "description": "Broccoli plugin to replace on token with another (require => __dereq__).",
-  "main": "index.js",
-  "author": "Robert Jackson",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rwjblue/broccoli-derequire.git"
-  },
-  "scripts": {
-    "test": "mocha tests/"
-  },
   "keywords": [
     "broccoli-plugin",
     "javascript"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rwjblue/broccoli-derequire.git"
+  },
+  "license": "MIT",
+  "author": "Robert Jackson",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/"
+  },
   "dependencies": {
     "broccoli-persistent-filter": "^3.1.2",
     "derequire": "^2.1.1"
   },
   "devDependencies": {
-    "mocha": "^8.3.0",
     "broccoli": "^3.5.0",
-    "chai": "^4.3.0"
+    "chai": "^4.3.0",
+    "mocha": "^8.3.0",
+    "release-it": "^14.2.1",
+    "release-it-lerna-changelog": "^3.1.0"
   },
   "engines": {
     "node": "10.* || >= 12"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md",
+        "launchEditor": true
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_AUTH"
+    }
   }
 }
