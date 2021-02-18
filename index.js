@@ -1,10 +1,13 @@
-const Filter = require('broccoli-filter');
+const Filter = require('broccoli-persistent-filter');
 const derequire = require('derequire');
 
 class Derequire extends Filter {
 
   constructor(inputTree, options = {}) {
     super(inputTree, options);
+
+    this.extensions = ['js'];
+    this.targetExtensions = ['js'];
 
     this.files       = options.files || [];
     this.description = options.description;
@@ -25,8 +28,5 @@ class Derequire extends Filter {
     return derequire(str, this.patterns);
   }
 }
-
-Derequire.prototype.extensions = ['js'];
-Derequire.prototype.targetExtension = 'js';
 
 module.exports = Derequire;
